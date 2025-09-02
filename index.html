@@ -347,7 +347,7 @@ eager to contribute to forward-thinking teams in AI research, product developmen
 						</div>
 						<h3 class="apihu-port-single-service-title">DreamSpaceAI: Redesign Your Room</h3>
 						<p class="apihu-port-single-service-text">Transforms room photos into styled designs using Stable Diffusion XL and T2I Adapter with support for voice prompts. Ideal for interior designers and architects.</p>
-						<a class="apihu-port-single-service-btn" href="https://github.com/KishanYadav29-10/DreamSpace_AI" target="_blank">Read More</a>
+						<a class="apihu-port-single-service-btn" href="https://github.com/KishanYadav29-10/Resume-Projects/tree/main/DreamSpaceAI" target="_blank">Read More</a>
 					</div>
 				</div>
 			</div>
@@ -700,6 +700,247 @@ eager to contribute to forward-thinking teams in AI research, product developmen
 					</div>
 				</div>
 			</div>
+<!-- Floating AI Assistant -->
+<div id="chatbot-btn">💬</div>
+
+<div id="chatbot-window">
+  <div class="chatbot-header">
+    <h5>AI Assistant 🤖</h5>
+    <button id="close-chat">&times;</button>
+  </div>
+
+  <!-- Quick buttons container above messages -->
+  <div id="quick-buttons" class="sticky-buttons"></div>
+
+  <div id="chatbot-messages"></div>
+
+  <div class="chatbot-input">
+    <input type="text" id="chatbot-userInput" placeholder="Type your message..." />
+    <button id="chatbot-sendBtn">Send</button>
+  </div>
+</div>
+
+<style>
+/* Floating button */
+#chatbot-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(135deg,#e70280,#6c63ff);
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+#chatbot-btn:hover { transform: scale(1.1); }
+
+/* Chat window */
+#chatbot-window {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 360px;
+  height: 480px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+  font-family: 'Roboto', sans-serif;
+  animation: fadeInUp 0.4s ease;
+}
+
+/* Header */
+.chatbot-header {
+  background: linear-gradient(135deg,#e70280,#6c63ff);
+  color: white;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.chatbot-header h5 { margin: 0; font-size: 16px; }
+.chatbot-header button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.chatbot-header button:hover { transform: scale(1.2); }
+
+/* Quick buttons */
+.sticky-buttons {
+  display: flex;
+  flex-wrap: wrap;          /* wrap to multiple lines */
+  gap: 8px;
+  padding: 8px;
+  background: #fafafa;
+  border-bottom: 1px solid #eee;
+  position: sticky;         /* stays at top */
+  top: 0;
+  z-index: 10;
+  max-height: 120px;        /* scroll if too many buttons */
+  overflow-y: auto;
+}
+.quick-btn {
+  background: linear-gradient(135deg,#e70280,#6c63ff);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.quick-btn:hover { background: linear-gradient(135deg,#c7016b,#5948ff); }
+
+/* Messages */
+#chatbot-messages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  font-size: 14px;
+  background: #fdf8ff;
+}
+#chatbot-messages .user, #chatbot-messages .assistant {
+  margin: 8px 0;
+  padding: 12px 16px;
+  border-radius: 20px;
+  max-width: 80%;
+  line-height: 1.5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  word-wrap: break-word;
+}
+#chatbot-messages .user {
+  background: linear-gradient(135deg,#e70280,#6c63ff);
+  color: white;
+  margin-left: auto;
+  text-align: right;
+}
+#chatbot-messages .assistant {
+  background: #f1f1f1;
+  color: #333;
+  margin-right: auto;
+}
+
+/* Input */
+.chatbot-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding: 8px;
+  background: #fff;
+}
+.chatbot-input input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  padding: 10px 16px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s;
+}
+.chatbot-input input:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 8px rgba(108,99,255,0.2);
+}
+.chatbot-input button {
+  margin-left: 8px;
+  background: linear-gradient(135deg,#e70280,#6c63ff);
+  border: none;
+  border-radius: 30px;
+  color: white;
+  padding: 0 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.chatbot-input button:hover { background: linear-gradient(135deg,#c7016b,#5948ff); }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+const chatbotBtn = document.getElementById("chatbot-btn");
+const chatbotWindow = document.getElementById("chatbot-window");
+const closeChat = document.getElementById("close-chat");
+const chatbotMessages = document.getElementById("chatbot-messages");
+const chatbotUserInput = document.getElementById("chatbot-userInput");
+const chatbotSendBtn = document.getElementById("chatbot-sendBtn");
+const quickButtonsContainer = document.getElementById("quick-buttons");
+
+// Sections
+const portfolioSections = ["Projects", "Skills", "Certificates", "About Me", "Resume"];
+
+// Generate quick buttons on top
+portfolioSections.forEach(section => {
+  const btn = document.createElement("button");
+  btn.className = "quick-btn";
+  btn.textContent = section;
+  btn.onclick = () => sendChatMessage(section);
+  quickButtonsContainer.appendChild(btn);
+});
+
+function addChatMessage(sender, text) {
+  const msg = document.createElement("div");
+  msg.classList.add(sender);
+  msg.innerHTML = marked.parse(text);
+  chatbotMessages.appendChild(msg);
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  return msg;
+}
+
+async function sendChatMessage(message) {
+  const msg = message || chatbotUserInput.value.trim();
+  if (!msg) return;
+
+  addChatMessage("user", msg);
+  chatbotUserInput.value = "";
+
+  const typingMsg = addChatMessage("assistant", "_Assistant is typing..._");
+
+  try {
+    const response = await fetch("https://kishan-portfolio-chatbot.onrender.com", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: msg })
+    });
+    const data = await response.json();
+    typingMsg.innerHTML = marked.parse(data.response || "⚠️ No response from server");
+  } catch (error) {
+    typingMsg.innerHTML = "❌ Error connecting to API";
+    console.error(error);
+  }
+}
+
+chatbotBtn.addEventListener("click", () => chatbotWindow.style.display = "flex");
+closeChat.addEventListener("click", () => chatbotWindow.style.display = "none");
+chatbotSendBtn.addEventListener("click", () => sendChatMessage());
+chatbotUserInput.addEventListener("keypress", (e) => { if (e.key === "Enter") sendChatMessage(); });
+</script>
+
+
+
+
+
 </body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
 
 </html>
