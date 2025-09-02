@@ -918,7 +918,7 @@ async function sendChatMessage(message) {
   const typingMsg = addChatMessage("assistant", "_Assistant is typing..._");
 
   try {
-    const response = await fetch("https://kishan-portfolio-chatbot.onrender.com", {
+    const response = await fetch("https://kishan-portfolio-chatbot.onrender.com/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: msg })
